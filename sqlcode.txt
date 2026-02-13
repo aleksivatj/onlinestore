@@ -13,3 +13,10 @@ CREATE TABLE products(
 
 INSERT INTO products (name, price, saldo) VALUES('TV 55', 659.99, 120);
 INSERT INTO products (name, price, saldo) VALUES('Vasara', 59.99, 140);
+
+CREATE TABLE customers(
+    username VARCHAR(10) PRIMARY KEY,
+    fname VARCHAR(20),
+    lname VARCHAR(20),
+    password VARCHAR(100)
+);
