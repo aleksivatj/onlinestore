@@ -4,10 +4,12 @@ const products = {
     getAll(callback){
         return db.query("SELECT * FROM products", callback);
     },
+
     getOne(idProduct, callback){
         return db.query("SELECT * FROM products WHERE id_products = ?",
         [idProduct], callback);
     },
+
     add(newP, callback){
         return db.query("INSERT INTO products (name, price, saldo) VALUES (?, ?, ?)",
                 [
@@ -16,6 +18,7 @@ const products = {
                     newP.saldo
                 ], callback);
     },
+
     update(idP, newP, callback){
         return db.query("UPDATE products set name = ?, price = ?, saldo = ? WHERE id_products = ?",
         [
@@ -25,6 +28,7 @@ const products = {
             idP
         ], callback);
     },
+    
     delete(idP, callback){
         return db.query("DELETE FROM products WHERE id_products = ?",
         [idP], callback);
