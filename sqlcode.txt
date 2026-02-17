@@ -20,3 +20,7 @@ CREATE TABLE customers(
     lname VARCHAR(20),
     password VARCHAR(100)
 );
+
+ALTER TABLE customers ADD COLUMN role VARCHAR(15) DEFAULT 'user';
+
+UPDATE customers SET role = 'admin' WHERE username = 'user01';
