@@ -15,6 +15,7 @@ app.get('/', function(request, response){
 });
 
 app.use('/login', loginRouter);
+app.use(authenticateToken); //suojatut reitit vaativat tokenin
 app.use('/products', productsRouter);
 app.use('/customers', customersRouter);
 
@@ -22,12 +23,26 @@ app.listen(port, function(){
     console.log("Palvelin kuuntelee porttia: "+ port);
 });
 
-function authenticateToken(request, response, next){
+function authenticateToken(request, response, next) {
     const authHeader = request.headers['authorization'];
 
-    if(!authheader) {
-        return response.sendStatus
+    if (!authHeader) {
+      return response.sendStatus(401);
     }
-}
+
+    const token = authHeader.split(' ')[1];
+
+    if (!token) {
+      return response.sendStatus(401);
+    }
+
+    jwt.verify(token, process.env.MY_TOKEN, function(err, user) {
+      if (err) {
+        return response.sendStatus(403);
+      }
+      request.user = user;
+      next();
+    })
+  }
 
 module.exports = app;
